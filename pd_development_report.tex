@@ -1,0 +1,186 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{etoolbox}           % For inserting commands before \section
+\usepackage{fancyhdr}           % For custom footers/headers
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            urlcolor=blue,
+            citecolor=blue,
+            pdfborder={0 0 0}]{hyperref}
+
+% Ensure each \section begins on a new page
+\preto\section{\clearpage}
+
+% Format for section and subsection titles
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\begin{document}
+
+%----------------------------------%
+%  TITLE PAGE (no footer, no page #)
+%----------------------------------%
+\begin{titlepage}
+  \hypersetup{pageanchor=false}
+  \pagenumbering{gobble}  % No page numbering
+  \thispagestyle{empty}
+  \begin{center}
+    \vspace*{3cm}
+    {\Huge \textbf{Mortgage IRB PD Model}}\\[0.5cm]
+    {\Large Model Development Report}\\[5cm]
+
+    \textbf{Prepared by:}\\
+    Risk Management Department \\
+    First European Bank \\
+    \vfill
+    \today
+  \end{center}
+\end{titlepage}
+
+%----------------------------------%
+%   TABLE OF CONTENTS (no footer)
+%----------------------------------%
+\hypersetup{pageanchor=true}
+\pagenumbering{roman}
+\pagestyle{plain}         % Default "plain" style (no fancy footer)
+\tableofcontents
+\clearpage
+
+%----------------------------------%
+%     MAIN CONTENT (footer on)
+%----------------------------------%
+\pagenumbering{arabic}
+
+% Define fancy footer, used for main content
+\pagestyle{fancy}
+\fancyhf{}                        % clear all header and footer fields
+\fancyfoot[L]{PD Model Development Report}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\onehalfspacing
+
+\section{Introduction}
+
+\subsection{Purpose}
+Defines the main objectives of the PD model development, ensuring alignment with regulatory guidelines and internal risk management goals. Establishes how the results will be used for decision-making and compliance. Summarizes model scope (mortgage portfolio) and overarching business rationale.
+
+\subsection{Range of Application}
+Specifies the segments of the mortgage portfolio to which the model will apply. Clarifies any inclusions/exclusions based on product types or risk profiles. Ensures consistency with overarching rating system requirements.
+
+\subsection{Portfolio overview}
+Outlines the key attributes of the mortgage portfolio: size, geography, and collateral types. Highlights any known concentration risks or unique characteristics. Establishes the context for later segmentation and data representativeness checks.
+
+\subsection{Overview of the process and governance}
+Provides a high-level description of the entire PD model lifecycle, from data preparation to calibration. Sets out responsibilities for model approval, validation, and periodic reviews, in line with regulatory expectations. Emphasizes the need for robust governance to ensure model integrity.
+
+\subsection{Role of expert judgement}
+Explains how and when human insight can override or complement statistical methods. Describes policies for applying overrides, including documentation and validation of assumptions. Stresses the importance of balancing objectivity with practical domain knowledge.
+
+\subsection{Segmentation and representativeness considerations}
+Summarizes why segmentation is necessary, referencing the need for homogeneous risk pools. Describes the checks to ensure representative datasets across different segments. Points out potential challenges in covering changes in default definitions, market conditions, or lending standards.
+
+\section{Reference Dataset}
+
+\subsection{Data sources and data collection}
+Describes all internal and external data sources used to build the PD model. Explains the process for gathering relevant risk drivers, default events, and economic indicators. Highlights any reliance on third-party data.
+
+\subsection{Analysis of data quality and data cleansing}
+Outlines eight dimensions of data quality and how they are evaluated. Covers how missing or erroneous records are identified, scored, and either corrected or excluded. Mentions the scoring framework to decide which data elements can be used in subsequent steps.
+
+\subsection{Reference Dataset development}
+Details the creation of the final “clean” dataset, incorporating segmentation, data validation, and alignment with the model’s scope. Specifies how historical default events are combined with key risk drivers. Ensures consistency and traceability back to original sources.
+
+\section{Univariate and bivariate analysis}
+
+\subsection{Segmentation and representativeness analysis}
+Validates whether each segment remains homogeneous and truly represents real-world exposure. Uses statistical tests to confirm distribution similarities, default definition alignment, and stable lending standards.
+
+\subsection{Differentiation dataset creation}
+Explains the subset of data specifically used to rank or differentiate risk (i.e., “development sample”). Ensures the sample adequately reflects defaulted and non-defaulted observations for robust statistical analysis.
+
+\subsection{Handling of missing values}
+Describes methods (e.g., MCAR tests, imputation, or separate “missing” categories) to address data gaps without biasing the model. Notes any business rules where missing information is itself informative.
+
+\subsection{Creation of the Long List}
+Lists all initial candidate variables from univariate exploration. Notes preliminary results: each variable’s correlation with default, stability, and coverage. Sets the stage for further reduction.
+
+\subsection{Selection of risk drivers}
+Discusses how variables transition from the Long List to the Short List based on quantitative (performance, stability) and qualitative (expert judgement) criteria. Emphasizes consistent application of predefined tests.
+
+\subsection{Overview of the Short List}
+Introduces the final set of key drivers likely to have predictive power. Summarizes each driver’s rationale for inclusion, highlighting potential synergy among variables.
+
+\section{Risk differentiation model development}
+
+\subsection{Review of methodology}
+Provides an overview of the chosen modeling approach (e.g., logistic regression, staged blocks). Justifies why this methodology is appropriate, referencing regulatory expectations and internal use cases.
+
+\subsection{Developing model candidates}
+Describes the iterative process of model building using different subsets or transformations of the Short List. Uses both statistical criteria and business reasoning to refine model structure.
+
+\subsection{Review of model candidates}
+Highlights the performance, stability, and interpretability checks for each candidate. Ensures no overfitting or underfitting, with an eye on future calibration.
+
+\subsection{Overview of the final differentiation model}
+Outlines the final selected model architecture and variables, including scoring/weighting details. References relevant metrics (e.g., ROC/AUC) for model validation.
+
+\subsection{Model testing}
+Explains the preliminary back-testing done to confirm the model’s discriminatory power and stability. Demonstrates alignment with the chosen rating philosophy and business expectations.
+
+\section{Model calibration}
+
+\subsection{Segmentation and representativeness analysis}
+Ensures that each calibration pool aligns with previous segmentation assumptions. Confirms no major shifts in distribution that would bias calibration.
+
+\subsection{Calibration dataset creation}
+Describes the final dataset used for calibrating PD estimates, including how overrides or special cases are handled. Mentions any pooling or smoothing techniques.
+
+\subsection{Rating philosophy}
+Establishes the chosen approach (Point-in-Time, Through-the-Cycle, or Hybrid) for calibrating PDs. Explains how this aligns with internal uses and regulatory requirements.
+
+\subsection{Calculation of Long Run Average default rates}
+Details how historical default rates are aggregated and averaged over a representative period. Explains how “bad years” and “good years” are accounted for to ensure accurate reflectiveness.
+
+\subsection{Pooling}
+Describes grouping of exposures with similar risk profiles to ensure stable estimates. Mentions how the final PD is derived for each pool, referencing key drivers.
+
+\subsection{Model testing}
+Reassesses the model’s predictive accuracy post-calibration. Cross-checks default rate alignment with the long-run average.
+
+\section{Deficiencies and Margin of Conservatism}
+
+\subsection{Identification of deficiencies}
+Explains how the model’s data or methodology might fall short (e.g., biases, missing triggers). Includes referencing possible categories (A, B, C) of deficiencies.
+
+\subsection{Appropriate Adjustments}
+Covers how identified weaknesses are corrected (e.g., adjusting data, refining model assumptions). Ensures these adjustments are consistent with best practices and regulatory guidance.
+
+\subsection{Margin of Conservatism}
+Describes the application of the framework for quantifying and adding conservatism to PD estimates (e.g., categories A, B, C). Emphasizes that MoC reflects the uncertainty due to data or methodological limitations.
+
+\section{Implementation and use}
+
+\subsection{Implementation}
+Describes how the developed model is implemented in the IT systems.
+
+\subsection{Integration into everyday processes}
+Discusses how the new PD model is embedded into credit risk management, underwriting, and capital calculation. Mentions IT systems updates, reporting, and automation of rating assignments.
+
+\subsection{User training and documentation}
+Highlights the need for thorough user training on the final PD model and processes. Ensures that all procedures, limitations, and override options are clearly documented.
+
+\begin{thebibliography}{99}
+    \bibitem{ref1} EBA. \textit{Guidelines on PD estimation, LGD estimation and the treatment of defaulted exposures}. European Banking Authority, 2018.
+    \bibitem{ref2} Internal document. \textit{PD Modelling Guidelines}. Credit Risk Modelling, 2024.
+    \bibitem{ref3} Internal document. \textit{PD Modelling Procedures}. Credit Risk Modelling, 2024.
+\end{thebibliography}
+
+\end{document}
