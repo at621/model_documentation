@@ -2,12 +2,6 @@
 
 This repository demonstrates how to dynamically populate repeated LaTeX subsections from Python. Below you’ll find:
 
-1. Folder Structure  
-2. Usage Instructions  
-3. Example `main.tex` File  
-4. Example Python Script for Generating `.tex` Snippet Files  
-5. Example Python Script for Converting `main.tex` to PDF  
-
 ---
 
 #### Folder Structure
