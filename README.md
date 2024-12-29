@@ -1,6 +1,16 @@
 ### Dynamic LaTeX Subsections Generation
 
-This repository demonstrates how to dynamically populate repeated LaTeX subsections from Python.
+This repository demonstrates how to dynamically populate repeated LaTeX subsections from Python. Below you’ll find:
+
+1. Folder Structure  
+2. Usage Instructions  
+3. Example `main.tex` File  
+4. Example Python Script for Generating `.tex` Snippet Files  
+5. Example Python Script for Converting `main.tex` to PDF  
+
+---
+
+#### Folder Structure
 
 ```plaintext
 my_latex_project/
@@ -9,9 +19,10 @@ my_latex_project/
 │   ├── subsection_1.tex
 │   ├── subsection_2.tex
 │   └── ...
-└── generate_content.py    # Python script that creates subsection_#.tex
+├── generate_content.py    # Python script that creates subsection_#.tex
+└── compile_to_pdf.py      # Python script that compiles main.tex to PDF
 
-
-- main.tex: Has the fixed layout (sections/subsections) and uses \input{...} to pull in each subsection’s content.
+- main.tex: Contains the fixed LaTeX layout and uses \input{...} to bring in each subsection's content.
 - generated_subsections/: Populated by generate_content.py with one file per subsection.
-- generate_content.py: A Python script that performs the calculations and writes LaTeX snippets into the .tex files.
+- generate_content.py: Python script that performs the calculations and writes LaTeX snippets into the .tex files.
+- compile_to_pdf.py: Python script that compiles main.tex into a PDF via pdflatex.
